@@ -1,5 +1,5 @@
 from flask import Flask, request, Blueprint, jsonify
-from .model_aluno import AlunoNaoEncontrado, aluno_id, lista_alunos, excluir_alunos, adiciona_aluno, atualizar_alunos, excluir_alunos
+from .model_aluno import AlunoNaoEncontrado, aluno_id, listar_alunos, atualizar_aluno, deletar_aluno_por_id, adiciona_aluno
 
 aluno = Blueprint('alunos', __name__)
 
@@ -11,7 +11,7 @@ def home():
 
 @aluno.route("/alunos", methods=['GET'])
 def alunos():
-    return jsonify(lista_alunos())
+    return jsonify(listar_alunos())
 
 @aluno.route("/alunos/<int:id_aluno>", methods=["GET"])
 def get_aluno(id_aluno):
@@ -25,7 +25,7 @@ def get_aluno(id_aluno):
 def create_aluno(id_aluno):
     data = request.json
     try:
-        atualizar_alunos(id_aluno, data)
+        atualizar_aluno(id_aluno, data)
         return jsonify(aluno_id(id_aluno))
     except AlunoNaoEncontrado:
         return jsonify ({"erro": 'Aluno não encontrado'}), 404
@@ -34,7 +34,7 @@ def create_aluno(id_aluno):
 @aluno.route("/deletar", methods=["POST", "DELETE"])
 def delete_alunos(id_aluno):
     try:
-        excluir_alunos(id_aluno)
+        deletar_aluno_por_id(id_aluno)
         return '', 204
     except AlunoNaoEncontrado:
         return jsonify({"erro": 'Aluno não encontrado'}), 404
