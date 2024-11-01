@@ -1,0 +1,50 @@
+<!-- templates/listar_alunos.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+</head>
+<body>
+    <h1>Lista de Alunos</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Turma</th>
+            <th>Data de Nascimento</th>
+            <th>Nota Semestre 1</th>
+            <th>Nota Semestre 2</th>
+            <th>media_final</th>
+        <th>Detalhes</th>
+        <th>Excluir</th>
+        </tr>
+        {% for aluno in alunos_data %}
+        <tr>
+            <td>{{ aluno.id }}</td>
+            <td>{{ aluno.nome }}</td>
+            <td>{{ aluno.turma_id }}</td>
+            <td>{{ aluno.data_nascimento }}</td>
+            <td>{{ aluno.nota_semestre_1 }}</td>
+            <td>{{ aluno.nota_semestre_2 }}</td>
+            <td>{{ aluno.media_final }}</td>
+            <td>
+                <a href="{{ url_for('alunos.get_aluno', id_aluno=aluno.id) }}">
+                    <button>Detalhes</button>
+                </a>
+            </td>
+            <td>
+                <form action="{{ url_for('alunos.delete_alunos', id_aluno=aluno.id) }}" method="POST" style="display:inline;">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit">Deletar</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('alunos.mostrar_formulario_aluno') }}">
+        <button>Adicionar Aluno</button>
+    </a>
+</body>
+</html>

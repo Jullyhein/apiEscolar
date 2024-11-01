@@ -7,7 +7,8 @@ class Turma(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     descricao = db.Column(db.String(100), nullable=False)
     professor_id = db.Column(db.Integer, db.ForeignKey('professor.id', ondelete="SET NULL"), nullable=True)
-    professor_id = db.relationship('Professor', backref='turmas')
+    # O relacionamento deve ter o nome 'professor' em vez de 'professor_id'
+    professor = db.relationship('Professor', backref='turmas')
     ativo = db.Column(db.Boolean, default=True)
     
 
@@ -31,7 +32,7 @@ class DadoNaoEncontrado(Exception):
 
 
 def turma_id(id_turma):
-    lista_turma = Turma.query.get(id_turma)
+    lista_turma = db.session.get(Turma, id_turma)
     if not lista_turma:
         raise DadoNaoEncontrado
     return Turma.to_dict()
@@ -39,7 +40,7 @@ def turma_id(id_turma):
 
 def adicionar_turma(turma_data):
     professor_id = turma_data.get('professor')
-    prof = Professor.query.get(professor_id)
+    prof = db.session.get(Professor, professor_id)
     if not prof:
         raise ValueError(f'Professor com id {professor_id} não encontrado')
     # Cria a nova turma com a instância do professor associada

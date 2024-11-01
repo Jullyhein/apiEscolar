@@ -28,10 +28,10 @@ class ProfessorNaoEncontrado(Exception):
 
 
 def professor_id(id_professor):
-    lista_professor = Professor.query.get(id_professor)
-    if not lista_professor:
+    professor = Professor.query.get(id_professor)
+    if not professor:
         raise ProfessorNaoEncontrado
-    return Professor.to_dict()
+    return professor
 
 
 def professor_existe(id_professor):
@@ -44,6 +44,14 @@ def professor_existe(id_professor):
 
 
 def adiciona_professor(prof_dados):
+
+    required_keys = ["nome", "idade", "materia", "observacao"]
+
+    # Verifica se todas as chaves estão presentes
+    for key in required_keys:
+        if key not in prof_dados:
+            raise ValueError(f'Chave {key} está faltando nos dados do professor.')
+
     novo_prof = Professor(
         nome = prof_dados["nome"],
         materia = prof_dados["materia"],
@@ -52,7 +60,6 @@ def adiciona_professor(prof_dados):
     )
     db.session.add(novo_prof)
     db.session.commit()
-
 
 
 def lista_professor():
@@ -79,3 +86,5 @@ def atualiza_prof(id_prof, novos_dados):
     professor.idade = novos_dados["idade"]
     professor.observacao = novos_dados["observacao"]
     db.session.commit()
+
+
