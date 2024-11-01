@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Turmas</title>
+</head>
+<body>
+
+    <h1>Lista de Turmas</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Professor</th>
+                <th>Ativo</th>
+                <th>Detalhes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for turma in turmas %}
+            <tr>
+                <td>{{ turma.descricao }}</td>
+                <td>{{ turma.professor }}</td>
+                <td>{{ turma.ativo }}</td>
+                <td>
+                    <a href="{{ url_for('turmas.get_turmas_por_id', id_turma=turma.id) }}">
+                        <button>Detalhes</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div>
+        <a href="{{ url_for('turmas.adicionar_turma_page',) }}">
+        <button>Adicionar Turma</button>
+
+    </div>
+</body>
+</html>

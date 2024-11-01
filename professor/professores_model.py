@@ -77,14 +77,13 @@ def deleta_prof(id_prof):
 
 
 
-def atualiza_prof(id_prof, novos_dados):
-    professor = Professor.query.get(id_prof)
-    if not professor:
-        raise ProfessorNaoEncontrado
-    professor.nome = novos_dados["nome"]
-    professor.materia = novos_dados["materia"]
-    professor.idade = novos_dados["idade"]
-    professor.observacao = novos_dados["observacao"]
+def atualiza_prof(id_professor, professor):
+    db.session.query(Professor).filter(Professor.id == id_professor).update({
+        'nome': professor.nome,
+        'materia': professor.materia,
+        'idade': professor.idade,
+        'observacao': professor.observacao
+         })
     db.session.commit()
 
 

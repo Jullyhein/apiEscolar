@@ -1,64 +1,78 @@
-from flask import Blueprint, request, jsonify
-from professor.professores_model import Professor
-from turma.turma_models import Turma, lista_turmas, adicionar_turma, delete_turma
-from config import db
+from flask import Blueprint, request, jsonify, render_template, redirect, url_for
+from turma.turma_models import DadoNaoEncontrado, lista_turmas, turma_por_id, adicionar_turma, atualiza_tudo, delete_turma
 
-turma_blueprint = Blueprint('turma', __name__) 
+turmas_blueprint = Blueprint('turmas', __name__)
 
 
-@turma_blueprint.route('/turmas', methods=['GET'])
+@turmas_blueprint.route('/turmas', methods=['GET'])
 def get_turmas():
-    turmas = lista_turmas()  # Assumindo que essa função retorna uma lista de turmas
-    turmas_json = [turma.to_dict() for turma in turmas]
-    return jsonify(turmas_json)
+    turmas = lista_turmas()
+    return render_template("turmas.html", turmas=turmas)
 
 
-@turma_blueprint.route("/turma", methods=["POST", "PUT"])
-def manage_turma():
-    dados = request.get_json()
-    descricao = dados.get('descricao')
-    professor_id = dados.get('professor_id')
-    
-    if not descricao or not professor_id:
-        return jsonify({'erro': 'Nome da turma e professor_id são obrigatórios'}), 400
+@turmas_blueprint.route("/turmas/<int:id_turma>", methods=["GET"])
+def get_turmas_por_id(id_turma):
+    try:
+        turma = turma_por_id(id_turma)
+        return render_template("turmas_id.html", turma=turma)
+    except DadoNaoEncontrado:
+        return ({"erro": 'turma não encontrada'}, 400)
 
-    # Verificando se o professor existe
-    professor = db.session.get(Professor, professor_id)
-    if not professor:
-        return jsonify({'erro': 'Professor não encontrado'}), 404
 
-    if request.method == "POST":
-        # Lógica para criação de uma nova turma
-        adicionar_turma({
+@turmas_blueprint.route('/turmas/adicionar', methods=['GET'])
+def adicionar_turma_page():
+    return render_template('criarTurma.html')
+
+
+@turmas_blueprint.route('/turmas', methods=['POST'])
+def create_turma():
+    try:
+        descricao = request.form.get('descricao')
+        professor_id = request.form.get('prof_id')
+        ativo = request.form.get('ativo')
+
+        turma_data = {
             'descricao': descricao,
-            'professor': professor_id,
-            'ativo': dados.get('ativo', True)  # Define 'ativo' como True por padrão
-        })
-        return jsonify({'mensagem': 'Turma criada com sucesso!'}), 201
-    
-    elif request.method == "PUT":
-        # Lógica para atualizar uma turma existente
-        turma_id = dados.get('turma_id')
-        turma = db.session.get(Turma, turma_id)
-        
-        if not turma:
-            return jsonify({'erro': 'Turma não encontrada'}), 404
-        
-        turma.descricao = descricao
-        turma.professor_id = professor_id
-        turma.ativo = dados.get('ativo', turma.ativo)  # Mantém o valor atual de 'ativo' se não for passado
-        db.session.commit()
-        
-        return jsonify({'mensagem': 'Turma atualizada com sucesso!'}), 200
+            'prof_id': professor_id,
+            'ativo': ativo
+        }
+
+        adicionar_turma(turma_data)
+        return redirect(url_for('turmas.get_turmas'))
+    except DadoNaoEncontrado:
+        redirect(url_for('turmas.create_turma'))
 
 
+@turmas_blueprint.route("/turmas/editar/<int:id_turma>", methods=["GET"])
+def editar_turma_page(id_turma):
+    try:
+        turma = turma_por_id(id_turma)
+        return render_template("turmas_update.html", turma=turma)
+    except DadoNaoEncontrado:
+        return jsonify({'message': 'Turma não encontrado'}), 404
 
-@turma_blueprint.route("/turma/<int:id_turma>", methods=["DELETE"])
-def delete_turma(id_turma):
-    # Substitua `delete_turma(id_turma)` pela lógica de exclusão correta
-    turma = db.session.get(Turma, id_turma)
-    if turma:
-        db.session.delete(turma)
-        db.session.commit()
-        return jsonify({'mensagem': 'Turma deletada'}), 200
-    return jsonify({'erro': 'Turma não encontrada'}), 404
+
+@turmas_blueprint.route('/turmas/<int:id_turma>', methods=['PUT', 'POST'])
+def update_turma(id_turma):
+    print("Dados recebidos no formulário:", request.form)
+    try:
+        turma = turma_por_id(id_turma)
+        descricao = request.form["descricao"]
+        professor = request.form["prof_id"]
+        ativo = request.form["ativo"]
+        turma["descricao"] = descricao
+        turma["professor"] = professor
+        turma["ativo"] = ativo
+        atualiza_tudo(id_turma, turma)
+        return redirect(url_for('turmas.get_turmas', id_turma=id_turma))
+    except DadoNaoEncontrado:
+        return jsonify({'message': 'Turma não encontrada'}), 404
+
+
+@turmas_blueprint.route('/turmas/delete/<int:turma_id>', methods=['POST', 'DELETE'])
+def excluir_turma(turma_id):
+    try:
+        delete_turma(turma_id)
+        return redirect(url_for('turmas.get_turmas'))
+    except DadoNaoEncontrado:
+        return jsonify({"erro": 'turma não encontrada'}), 404

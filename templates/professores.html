@@ -3,17 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Professores</title>
+    <title>Lista do Professor</title>
 </head>
 <body>
-    <h1>Professores</h1>
-    <ul>
-        {% for prof in lista %}
-            <li>
-                <a href="{{ url_for('professor.get_professor', id_professor=prof['id']) }}">{{ prof['nome'] }}</a>
-            </li>
-        {% endfor %}
-    </ul>
-    <a href="/">Voltar</a>
+    <h1>Lista do Professor</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Matéria</th>
+                <th>Idade</th>
+                <th>Observação</th>
+                <th>Editar</th>
+                <th>Excluir</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                {% for professor in professores %}
+                <td>{{ professor.id }}</td>
+                <td>{{ professor.nome }}</td>
+                <td>{{ professor.materia }}</td>
+                <td>{{ professor.idade }}</td>
+                <td>{{ professor.observacao }}</td>
+                <td>
+                    <a href="{{ url_for('professores.editar_professor_page', id_professor=professor.id) }}">
+                        <button>Editar</button>
+                    </a>
+                </td>
+                <td>
+                    <form id="delete-form" action="{{ url_for('professores.delete_professores', id_professor=professor.id) }}" method="POST">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit">Excluir Professor</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div>
+        <a href="{{ url_for('professores.lista_professores') }}">
+            <button>Retornar à lista geral</button>
+        </a>
+    </div>
 </body>
 </html>

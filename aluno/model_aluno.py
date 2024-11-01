@@ -8,7 +8,7 @@ class Aluno(db.Model):
     __tablename__ = 'alunos'
     id = db.Column(db.Integer, primary_key=True)
     nome = db.Column(db.String(80), nullable=False)
-    turma_id = db.Column(db.Integer, db.ForeignKey('turma.id', ondelete="SET NULL"), nullable=True)
+    turma_id = db.Column(db.Integer, db.ForeignKey('turmas.id', ondelete="SET NULL"), nullable=True)
     turma = db.relationship('Turma', backref='alunos')
     data_nascimento = db.Column(db.Date)
     nota_semestre_1 = db.Column(db.Integer)
