@@ -17,15 +17,12 @@
   <p><strong>Nota do 1 semestre:</strong> {{ aluno.nota_semestre_1 }}</p>
   <p><strong>Nota do 2 semestre:</strong> {{ aluno.nota_semestre_2 }}</p>
 
-  <form id="delete-form" action="{{ url_for('alunos.delete_alunos', id_aluno=aluno.id) }}" method="DELETE">
+  <form id="delete-form" action="{{ url_for('alunos.delete_alunos', id_aluno=aluno.id) }}" method="POST">
     <input type="hidden" name="_method" value="DELETE">
     <button type="submit">Excluir Aluno</button>
   </form>
   <div>
-    <a href="{{ url_for('alunos.get_aluno') }}">Voltar para a lista de alunos</a>
-  </div>
-  <div>
-    <a href="{{ url_for('alunos.create_aluno', id_aluno=aluno.id)}}">Atualizar dados do estudante</a>
+    <a href="{{ url_for('alunos.listar_alunos_view') }}">Voltar para a lista de alunos</a>
   </div>
 </body>
 

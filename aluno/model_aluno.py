@@ -27,7 +27,7 @@ class Aluno(db.Model):
         return {
             "id": self.id,
             "nome": self.nome,
-            "turma_id": self.turma_id.descricao if self.turma else "Sem Turma",
+            "turma_id": self.turma.descricao if self.turma else "Sem Turma",
             "data_nascimento": self.data_nascimento.strftime('%Y-%m-%d') if self.data_nascimento else None,
             "nota_semestre_1": self.nota_semestre_1,
             "nota_semestre_2": self.nota_semestre_2,

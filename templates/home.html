@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
+<html lang="en">
+
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Escolar</title>
-</head>
-<body>
-    <h1>Bem-vindo à API Escolar</h1>
-    <p>A API Escolar está ativa e pronta para uso!</p>
-</body>
-</html>
+    <title>Sistema de Informações</title>
+  </head>
+
+  <body>
+    <header>
+        <h1>Seja Bem-vindo ao nosso sistema!</h1>
+    </header>
+    
+    <main>
+        <section>
+            <h2>Alunos</h2>
+            <ul>
+                <li><a href="{{ url_for('alunos.mostrar_formulario_aluno') }}">Adicionar novo aluno</a></li>
+                <li><a href="{{ url_for('alunos.listar_alunos_view') }}">Quadro de alunos</a></li>
+            </ul>
+        </section>

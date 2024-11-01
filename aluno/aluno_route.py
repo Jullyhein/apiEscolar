@@ -69,6 +69,7 @@ def update_aluno(id_aluno):
     except AlunoNaoEncontrado:
         return jsonify({'message': 'Aluno não encontrado'}), 404
     
+
 @aluno.route('/alunos/editar/<int:id_aluno>', methods=['GET'])
 def editar_aluno_page(id_aluno):
     try:
@@ -78,10 +79,14 @@ def editar_aluno_page(id_aluno):
         return jsonify({'message': 'Aluno não encontrado'}), 404
 
 
-@aluno.route("/deletar/deletar/<int:id_aluno>", methods=["POST", "DELETE"])
+@aluno.route("/deletar/deletar/<int:id_aluno>", methods=["POST"])
 def delete_alunos(id_aluno):
-    try:
-        deletar_aluno_por_id(id_aluno)
-        return redirect(url_for('alunos.listar_alunos_view'))
-    except AlunoNaoEncontrado:
-        return jsonify({"erro": 'Aluno não encontrado'}), 404
+    if request.method == "POST":
+        # Verifique se o método oculto é DELETE
+        if request.form.get('_method') == 'DELETE':
+            try:
+                deletar_aluno_por_id(id_aluno)
+                return redirect(url_for('alunos.listar_alunos_view'))
+            except AlunoNaoEncontrado:
+                return jsonify({"erro": 'Aluno não encontrado'}), 404
+    return jsonify({"erro": "Método não permitido"}), 405
