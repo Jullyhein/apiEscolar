@@ -1,31 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Atualizar Professor</title>
-  </head>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-  <body>
-    <h1>Atualizar Professor</h1>
-    <form action="{{ url_for('professores.update_professores', id_professor=professor.id) }}" method="POST">
-      <!-- Altere o método de envio para PUT -->
-      <input type="hidden" name="_method" value="PUT">
-      <label for="nome">Nome</label>
-      <input type="text" id="nome" name="nome" value="{{ professor.nome }}"><br>
-     
-      <label for="idade">Idade:</label>
-      <input type="number" id="idade" name="idade" value="{{ professor.idade }}"><br>
-      
-      <label for="materia">Materia</label>
-      <input type="text" id="materia" name="materia" value="{{ professor.materia }}"><br>
-      
-      <label for="observacao">Observações</label>
-      <input type="text" id="observacao" name="observacao" value="{{ professor.observacao }}"><br>
-   
-      <button type="submit">Atualizar</button>
-    </form>
-  </body>
+        /* Container */
+        .form-container {
+            max-width: 400px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
 
+        /* Título */
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        /* Labels e Inputs */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Botão de Submissão */
+        button[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #3498db;
+            border: none;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Atualizar Professor</h1>
+        <form action="{{ url_for('professores.update_professores', id_professor=professor.id) }}" method="POST">
+            <input type="hidden" name="_method" value="PUT">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" value="{{ professor.nome }}">
+            
+            <label for="idade">Idade:</label>
+            <input type="number" id="idade" name="idade" value="{{ professor.idade }}">
+            
+            <label for="materia">Matéria</label>
+            <input type="text" id="materia" name="materia" value="{{ professor.materia }}">
+            
+            <label for="observacao">Observações</label>
+            <input type="text" id="observacao" name="observacao" value="{{ professor.observacao }}">
+            
+            <button type="submit">Atualizar</button>
+        </form>
+    </div>
+</body>
 </html>

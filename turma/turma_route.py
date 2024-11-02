@@ -47,7 +47,7 @@ def create_turma():
 def editar_turma_page(id_turma):
     try:
         turma = turma_por_id(id_turma)
-        return render_template("turmas_update.html", turma=turma)
+        return render_template("turma_update.html", turma=turma)
     except DadoNaoEncontrado:
         return jsonify({'message': 'Turma não encontrado'}), 404
 

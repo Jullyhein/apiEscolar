@@ -4,10 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista do Professor</title>
+    <style>
+        /* Estilos Gerais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Título */
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        /* Tabela */
+        table {
+            width: 100%;
+            max-width: 800px;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        thead th {
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 10px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        tbody td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr:hover {
+            background-color: #e8f4fb;
+        }
+
+        /* Botões de Ação */
+        button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        /* Botão Editar */
+        a button {
+            background-color: #f39c12;
+            color: #ffffff;
+        }
+
+        /* Botão Excluir */
+        form button {
+            background-color: #e74c3c;
+            color: #ffffff;
+        }
+
+        /* Botão de Retorno */
+        .return-btn {
+            display: inline-block;
+            text-align: center;
+            background-color: #3498db;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .return-btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
 <body>
     <h1>Lista do Professor</h1>
-
     <table>
         <thead>
             <tr>
@@ -44,9 +134,7 @@
         </tbody>
     </table>
     <div>
-        <a href="{{ url_for('professores.lista_professores') }}">
-            <button>Retornar à lista geral</button>
-        </a>
+        <a href="{{('/') }}" class="return-btn">Retornar à lista geral</a>
     </div>
 </body>
 </html>

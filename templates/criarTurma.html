@@ -3,7 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adicionar Aluno</title>
+    <title>Adicionar Turma</title>
+    <style>
+        /* Estilos gerais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            margin: 20px;
+        }
+
+        /* Título */
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Formulário */
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Labels e Inputs */
+        label {
+            font-weight: bold;
+            color: #2980b9;
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* Botão de Envio */
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #1e8449;
+        }
+    </style>
 </head>
 <body>
 
@@ -11,7 +73,7 @@
     
     <form action="{{ url_for('turmas.create_turma') }}" method="POST">
         
-        <label for="descricao">Descricao:</label>
+        <label for="descricao">Descrição:</label>
         <input type="text" id="descricao" name="descricao" required>
 
         <label for='prof_id'>Professor (ID):</label>

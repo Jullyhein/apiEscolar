@@ -55,7 +55,7 @@ def lista_turmas():
 
 
 def atualiza_tudo(id_turma, novos_dados):
-    professor_id = novos_dados["professor"]  # Aqui deve usar 'prof_id' do formulário
+    professor_id = novos_dados["professor_id"]  # Aqui deve usar 'prof_id' do formulário
     professor = Professor.query.get(professor_id)
     if not professor:
         raise ValueError(f'Professor com id {professor_id} não encontrado')
