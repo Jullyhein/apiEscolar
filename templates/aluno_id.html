@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalhes do Aluno</title>
+  <style>
+    /* Estilos gerais */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+
+    /* Título */
+    h1 {
+      color: #2c3e50;
+      text-align: center;
+    }
+
+    /* Parágrafos de detalhes do aluno */
+    p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    p strong {
+      color: #2980b9;
+    }
+
+    /* Botão de exclusão */
+    #delete-form {
+      margin-top: 20px;
+      text-align: center;
+    }
+    #delete-form button {
+      background-color: #e74c3c;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #delete-form button:hover {
+      background-color: #c0392b;
+    }
+
+    /* Link de retorno */
+    div {
+      text-align: center;
+      margin-top: 20px;
+    }
+    a {
+      color: #2980b9;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Detalhes do Aluno</h1>
+  <p><strong>ID:</strong> {{ aluno.id }}</p>
+  <p><strong>Nome:</strong> {{ aluno.nome }}</p>
+  <p><strong>Idade:</strong> {{ aluno.idade }}</p>
+  <p><strong>Turma:</strong> {{ aluno.turma_id }}</p>
+  <p><strong>Nota do 1 semestre:</strong> {{ aluno.nota_semestre_1 }}</p>
+  <p><strong>Nota do 2 semestre:</strong> {{ aluno.nota_semestre_2 }}</p>
+
+  <form id="delete-form" action="{{ url_for('alunos.delete_alunos', id_aluno=aluno.id) }}" method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <button type="submit">Excluir Aluno</button>
+  </form>
+  <div>
+    <a href="{{ url_for('alunos.listar_alunos_view') }}">Voltar para a lista de alunos</a>
+  </div>
+</body>
+
+</html>

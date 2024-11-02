@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adicionar Professor</title>
+  <style>
+    /* Estilos gerais */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f8ff;
+      color: #333;
+      margin: 20px;
+    }
+
+    /* Título */
+    h1 {
+      color: #34495e;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Formulário */
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Labels e Inputs */
+    label {
+      font-weight: bold;
+      color: #2980b9;
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+    
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* Botão de Envio */
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Adicionar Professor</h1>
+  <form action="{{ url_for('professores.create_professor') }}" method="post">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" required>
+    
+    <label for="idade">Idade:</label>
+    <input type="number" id="idade" name="idade" required>
+    
+    <label for="materia">Matéria:</label>
+    <input type="text" id="materia" name="materia" required>
+    
+    <label for="observacao">Observações:</label>
+    <input type="text" id="observacao" name="observacao">
+    
+    <input type="submit" value="Adicionar Professor">
+  </form>
+</body>
+
+</html>

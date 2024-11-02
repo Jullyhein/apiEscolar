@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Turmas</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* Estilo do cabeçalho */
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        /* Estilo da tabela */
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Para eliminar espaços entre as bordas das células */
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Estilo das células da tabela */
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd; /* Borda inferior para as células */
+        }
+
+        /* Estilo do cabeçalho da tabela */
+        th {
+            background-color: #3e47c2; /* Cor de fundo para o cabeçalho */
+            color: white; /* Cor do texto no cabeçalho */
+        }
+
+        /* Estilo para linhas pares da tabela */
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9; /* Cor de fundo para linhas pares */
+        }
+
+        /* Estilo dos botões */
+        button {
+            background-color: #e74c3c;
+            color: #ffffff;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #e74c3c;
+            color: #ffffff;
+        }
+
+        /* Estilo do link */
+        a {
+            text-decoration: none; /* Remove sublinhado dos links */
+        }
+
+        a button {
+            margin-top: 20px; /* Margem para o botão de retornar */
+            background-color: #e74c3c;
+            color: #ffffff;
+        }
+
+        a button:hover {
+            background-color: #e74c3c;
+            color: #ffffff;
+        }
+    </style>
+    <h1>Lista de Turmas</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Descrição</th>
+                <th>Professor</th>
+                <th>Ativo</th>
+                <th>Detalhes</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for turma in turmas %}
+            <tr>
+                <td>{{ turma.descricao }}</td>
+                <td>{{ turma.professor }}</td>
+                <td>{{ turma.ativo }}</td>
+                <td>
+                    <a href="{{ url_for('turmas.get_turmas_por_id', id_turma=turma.id) }}">
+                        <button>Detalhes</button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div>
+        <a href="{{ url_for('turmas.adicionar_turma_page',) }}">
+        <button>Adicionar Turma</button>
+
+    </div>
+</body>
+</html>
