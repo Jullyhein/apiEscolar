@@ -13,24 +13,24 @@ http://127.0.0.1:8000
 
 ### Professor
 
-- **id**: Identificador único do professor (gerado automaticamente).
-- **nome**: Nome do professor.
-- **idade**: Idade do professor.
-- **materia**: Matéria que o professor leciona.
-- **observacao**: Observações adicionais sobre o professor.
+- **id**(int): Identificador único do professor (gerado automaticamente).
+- **nome**(str): Nome do professor.
+- **idade**(id): Idade do professor.
+- **materia**(str): Matéria que o professor leciona.
+- **observacao**(str): Observações adicionais sobre o professor.
 
 ### Turma
 
-- **id**: Identificador único da turma (gerado automaticamente).
-- **nome**: Nome da turma.
-- **professor_id**: Identificador do professor responsável pela turma.
+- **id**(int): Identificador único da turma (gerado automaticamente).
+- **nome**(str): Nome da turma.
+- **professor_id**(int): Identificador do professor responsável pela turma.
 
 ### Aluno
 
-- **id**: Identificador único do aluno (gerado automaticamente).
-- **nome**: Nome do aluno.
-- **idade**: Idade do aluno.
-- **turma_id**: Identificador da turma à qual o aluno pertence.
+- **id**(int): Identificador único do aluno (gerado automaticamente).
+- **nome**(str): Nome do aluno.
+- **idade**(int): Idade do aluno.
+- **turma_id**(int): Identificador da turma à qual o aluno pertence.
 
 ## Endpoints
 
